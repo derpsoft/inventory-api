@@ -1,0 +1,2 @@
+ALTER TABLE [Order] DROP COLUMN RowVersion;
+ALTER TABLE [Category] DROP COLUMN Sort;
