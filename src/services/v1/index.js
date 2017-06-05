@@ -10,6 +10,7 @@ import Reports from './reports';
 import Inventory from './inventory';
 import Orders from './orders';
 import Invoices from './invoices';
+import Images from './images';
 
 export default [
   Home,
@@ -24,4 +25,5 @@ export default [
   Orders,
   Invoices,
   Inventory,
+  Images,
 ];

@@ -6,7 +6,7 @@ shortid.characters('0123456789ab!defghijklmnopqrst$vwxyzAB@DEFGHIJKLMNOPQRST.VWX
 
 export default class extends Base {
   constructor() {
-    super('Category');
+    super('Image');
   }
 
   async createMany(records) {
