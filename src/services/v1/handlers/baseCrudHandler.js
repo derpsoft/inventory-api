@@ -60,7 +60,6 @@ export default class {
   async create(record) {
     this.beforeCreate(record);
 
-    const now = moment().toISOString();
     let result = await this.db(this.name)
       .returning('*')
       .insert(record);
@@ -77,6 +76,7 @@ export default class {
     delete record.deleteDate;
     delete record.isDeleted;
     delete record.rowVersion;
+    delete record.id;
 
     record.createDate = record.modifyDate = moment().toISOString();
     record.isDeleted = false;

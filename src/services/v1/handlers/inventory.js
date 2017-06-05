@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import moment from 'moment';
 import Base from './baseCrudHandler';
 
 export default class extends Base {
@@ -12,23 +14,28 @@ export default class extends Base {
     throw new Error('not allowed for InventoryTransactions');
   }
 
+  async list() {
+    const result = await this.db(this.name)
+      .select('*');
+
+    _.each(result, x => this.afterRead(x));
+
+    return result;
+  }
+
   async getQuantityOnHand(productId) {}
 
-  async save(request) {
-    if(!request) {
-      throw new Error('request is required')
-    }
-    if(request.productId < 1) {
-      throw new Error('productId must be set');
-    }
-    if(!request.userAuthId) {
-      throw new Error('userAuthId must be set');
-    }
+  beforeCreate(record) {
+    delete record.createDate;
+    delete record.modifyDate;
+    delete record.deleteDate;
+    delete record.isDeleted;
+    delete record.rowVersion;
+    delete record.id;
 
-    delete request.id;
-    request.TransactionType = request.Quantity > 0 ? 'In' : 'Out';
+    delete record.locationId;
 
-    return await this.db('InventoryTransaction')
-      .insert(request);
+    record.createDate = record.modifyDate = moment().toISOString();
+    record.transactionType = record.quantity > 0 ? 'In' : 'Out';
   }
 }

@@ -14,6 +14,12 @@ class Service extends BaseCrudService {
   async delete() {
     this.error(new Error('not supported'));
   }
+
+  async create(record = this.request.body) {
+    record.userAuthId = this.userId;
+
+    return await super.create(record);
+  }
 }
 
 export default {
