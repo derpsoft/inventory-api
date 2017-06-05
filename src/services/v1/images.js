@@ -1,4 +1,5 @@
 import formidable from 'formidable';
+import _ from 'lodash';
 import BaseCrudService from './baseCrudService';
 import Handler from './handlers/image';
 
@@ -14,17 +15,26 @@ class Service extends BaseCrudService {
 
     form.parse(this.request, async(err, fields, files) => {
       try {
-        const images = _.map(files, (f) => {
-
+        const images = _.map(files, ({
+          size,
+          path,
+          name,
+          type,
+          lastModifiedDate,
+          hash
+        }) => {
+          return {
+            imagePath: path,
+          };
         });
         const result = await this.handler.createMany(images);
 
-        await this.json({
+        this.json({
           endpoint: 'create',
           result,
         });
       } catch (e) {
-        await this.error(e);
+        this.error(e);
       }
     });
   }
