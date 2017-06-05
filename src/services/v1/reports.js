@@ -21,8 +21,12 @@ class Service extends Base {
     } = this.request.query;
 
     const id = parseInt(vendorId, 10);
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const result = await this.handler.salesByVendor(start, end, groupBy, id);
@@ -44,8 +48,12 @@ class Service extends Base {
     } = this.request.query;
 
     const id = parseInt(productId, 10);
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const result = await this.handler.salesByProduct(start, end, groupBy, id);
@@ -65,8 +73,12 @@ class Service extends Base {
       groupBy = 'day',
     } = this.request.query;
 
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const result = await this.handler.salesTotal(start, end, groupBy);
@@ -85,8 +97,12 @@ class Service extends Base {
       endDate,
     } = this.request.query;
 
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const {
@@ -108,8 +124,12 @@ class Service extends Base {
       endDate,
     } = this.request.query;
 
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const {
@@ -131,8 +151,12 @@ class Service extends Base {
       endDate,
     } = this.request.query;
 
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const {
@@ -154,8 +178,12 @@ class Service extends Base {
       endDate,
     } = this.request.query;
 
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const {
@@ -177,8 +205,12 @@ class Service extends Base {
       endDate,
     } = this.request.query;
 
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const {
@@ -201,8 +233,12 @@ class Service extends Base {
       groupBy = 'day',
     } = this.request.query;
 
-    const start = moment(startDate || {}).subtract(7, 'days');
-    const end = moment(endDate || {});
+    let start = moment.utc(startDate || {});
+    const end = moment.utc(endDate || {});
+
+    if(start.isSame(end, 'day')) {
+      start = start.subtract(7, 'days');
+    }
 
     try {
       const result = await this.handler.inventoryDispatched(start, end, groupBy);
@@ -251,7 +287,7 @@ export default {
     router.get('/reports/scalar/salesByUser', (req, res) => factory(req, res).salesByUser());
     router.get('/reports/scalar/revenueByUser', (req, res) => factory(req, res).revenueByUser());
     router.get('/reports/scalar/listingsTotalByUser', (req, res) => factory(req, res).listingsTotalByUser());
-    router.get('/reports/scalar/shippedInventoryByUser', (req, res) => factory(req, res).shippedInventoryByUser());
-    router.get('/reports/scalar/receivedInventoryByUser', (req, res) => factory(req, res).receivedInventoryByUser());
+    router.get('/reports/scalar/shippedByUser', (req, res) => factory(req, res).shippedInventoryByUser());
+    router.get('/reports/scalar/receivedByUser', (req, res) => factory(req, res).receivedInventoryByUser());
   }
 };
