@@ -32,7 +32,7 @@ const base = {
   aws: {
     s3: {
       region: process.env.AWS_REGION || 'us-east-1',
-      bucket: 'FIXME',
+      bucket: process.env.AWS_BUCKET,
     },
   },
   azure: {

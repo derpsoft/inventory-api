@@ -8,13 +8,25 @@ class Service extends BaseCrudService {
     super(...params);
   }
 
+  async singleBySku(sku = this.request.params.sku) {
+    try {
+      const result = await this.handler.singleBySku(sku);
+      return this.json({
+        endpoint: 'search',
+        result,
+      });
+    } catch (e) {
+      return this.error(e);
+    }
+  }
+
   async search() {
     try {
-      await this.json({
+      return this.json({
         endpoint: 'search',
       });
     } catch (e) {
-      await this.error(e);
+      return this.error(e);
     }
   }
 }
@@ -27,5 +39,7 @@ export default {
     router.post(`/${name}/search`, (req, res) => {
       factory(req, res).search();
     });
+
+    router.get(`/${name}/sku/:sku`, (req, res) => factory(req, res).singleBySku());
   }
 };
